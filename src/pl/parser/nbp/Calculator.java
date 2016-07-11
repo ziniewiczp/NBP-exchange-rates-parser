@@ -23,22 +23,20 @@ public class Calculator {
 		BigDecimal average;
 		BigDecimal deviation;
 		BigDecimal deviationAverage;
+		BigDecimal deviationSum = new BigDecimal("0.0000");
 		
 		average = data.averageSum.divide(data.counter);
 		average = average.setScale(4, RoundingMode.CEILING);
 		
 		deviationAverage = data.deviationSum.divide(data.counter);
 		
-		// resetting unused variable to reuse it in the next step
-		data.deviationSum = BigDecimal.ZERO;
-		
 		for(BigDecimal elem : data.deviationList) {
 		    BigDecimal temp = elem.subtract(deviationAverage);
 			
-		    data.deviationSum = data.deviationSum.add(temp.multiply(temp));
+		    deviationSum = deviationSum.add(temp.multiply(temp));
 		}
 		
-		deviation = sqrt(data.deviationSum.divide(data.counter));
+		deviation = sqrt(deviationSum.divide(data.counter));
 		deviation = deviation.setScale(4, RoundingMode.CEILING);
 	
 		this.average = average.toString();
